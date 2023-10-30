@@ -90,13 +90,15 @@ func pollEvents(pollerFd int, timeout time.Duration) ([]event, error) {
 	var timeoutMS = int(timeout.Nanoseconds() / 1e6)
 	var epollEvents [maxEpollEvents]unix.EpollEvent
 	// this blocks, waiting for socket events
-	nEvents, err := unix.EpollWait(pollerFd, epollEvents[:], timeoutMS)
-	if err != nil {
-		if err == unix.EINTR {
-			return nil, nil
-		}
-		return nil, os.NewSyscallError("epoll_wait", err)
-	}
+	//nEvents, err := unix.EpollWait(pollerFd, epollEvents[:], timeoutMS)
+	//if err != nil {
+	//	if err == unix.EINTR {
+	//		return nil, nil
+	//	}
+	//	return nil, os.NewSyscallError("epoll_wait", err)
+	//}
+
+	nEvents := 0
 
 	var events = make([]event, 0, nEvents)
 
